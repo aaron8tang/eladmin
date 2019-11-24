@@ -24,7 +24,7 @@ public interface PictureService {
     Object queryAll(PictureQueryCriteria criteria, Pageable pageable);
 
     /**
-     * 上传图片
+     * 上传图片，同时生成base64的字符串
      * @param file
      * @param username
      * @return

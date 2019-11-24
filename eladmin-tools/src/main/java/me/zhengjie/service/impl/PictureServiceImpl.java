@@ -59,12 +59,17 @@ public class PictureServiceImpl implements PictureService {
         if(!jsonObject.get(CODE).toString().equals(SUCCESS)){
             throw new BadRequestException(jsonObject.get(MSG).toString());
         }
+        
         //转成实体类
         picture = JSON.parseObject(jsonObject.get("data").toString(), Picture.class);
         picture.setSize(FileUtil.getSize(Integer.valueOf(picture.getSize())));
         picture.setUsername(username);
         picture.setFilename(FileUtil.getFileNameNoEx(multipartFile.getOriginalFilename())+"."+FileUtil.getExtensionName(multipartFile.getOriginalFilename()));
         pictureRepository.save(picture);
+        
+        String base64String = FileUtil.file2Base64(file);
+        picture.setBase64String(base64String);
+        
         //删除临时文件
         FileUtil.deleteFile(file);
         return picture;

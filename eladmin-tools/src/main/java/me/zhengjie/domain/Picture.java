@@ -43,11 +43,22 @@ public class Picture implements Serializable {
     @CreationTimestamp
     @Column(name = "create_time")
     private Timestamp createTime;
+    
+    @Transient
+    private String base64String;
 
     @Override
     public String toString() {
         return "Picture{" +
                 "filename='" + filename + '\'' +
                 '}';
+    }
+    
+    public String convertToBase64String()
+    {
+    	/*
+    	 * 先从网络存储读取图片，然后转换成base64编码的string
+    	 * */
+    	return base64String;
     }
 }

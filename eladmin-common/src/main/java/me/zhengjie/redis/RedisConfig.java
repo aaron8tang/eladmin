@@ -26,11 +26,11 @@ import java.time.Duration;
  * @date 2018-11-24
  */
 @Slf4j
-@Configuration
-@EnableCaching
+//@Configuration
+//@EnableCaching
 // 自动配置
-@ConditionalOnClass(RedisOperations.class)
-@EnableConfigurationProperties(RedisProperties.class)
+//@ConditionalOnClass(RedisOperations.class)
+//@EnableConfigurationProperties(RedisProperties.class)
 public class RedisConfig extends CachingConfigurerSupport {
 
     /**
@@ -38,7 +38,7 @@ public class RedisConfig extends CachingConfigurerSupport {
      *  设置@cacheable 序列化方式
      * @return
      */
-    @Bean
+    //@Bean
     public RedisCacheConfiguration redisCacheConfiguration(){
         FastJsonRedisSerializer<Object> fastJsonRedisSerializer = new FastJsonRedisSerializer<>(Object.class);
         RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig();
@@ -46,8 +46,8 @@ public class RedisConfig extends CachingConfigurerSupport {
         return configuration;
     }
 
-    @Bean(name = "redisTemplate")
-    @ConditionalOnMissingBean(name = "redisTemplate")
+    //@Bean(name = "redisTemplate")
+    //@ConditionalOnMissingBean(name = "redisTemplate")
     public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<Object, Object> template = new RedisTemplate<>();
         //序列化
@@ -77,7 +77,7 @@ public class RedisConfig extends CachingConfigurerSupport {
      * 使用方法 @Cacheable(keyGenerator="keyGenerator")
      * @return
      */
-    @Bean
+    //@Bean
     @Override
     public KeyGenerator keyGenerator() {
         return (target, method, params) -> {

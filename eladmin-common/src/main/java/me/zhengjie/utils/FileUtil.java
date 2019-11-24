@@ -3,8 +3,10 @@ package me.zhengjie.utils;
 import cn.hutool.core.util.IdUtil;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.Base64;
 
 /**
  * File工具类，扩展 hutool 工具包
@@ -115,5 +117,34 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
             resultSize = size + "B   ";
         }
         return resultSize;
+    }
+    
+    /**
+     * 将文件转换成Base64字符串
+     * 
+     * @param file
+     * @return
+     */
+    public static String file2Base64(File file) {
+        byte[] buffer = new byte[0];
+        FileInputStream inputFile = null;
+        try {
+            inputFile = new FileInputStream(file);
+            buffer = new byte[(int) file.length()];
+            inputFile.read(buffer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally
+        {
+        	try
+        	{
+        		inputFile.close();
+        	}catch(Exception ex)
+        	{
+        		
+        	}
+        }
+        return Base64.getEncoder().encodeToString(buffer);
     }
 }
